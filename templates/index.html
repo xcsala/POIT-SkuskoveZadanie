@@ -30,14 +30,17 @@
         </form>
         <form id="open" method="POST" action="#">
           <input type="submit" value="Open">
-      </form>
-      <button id="start" type="submit" value="start" class="ui-button ui-widget ui-corner-all">Start</button>
-      <button id="buttonVal" type="submit" value="stop">stop</button>
-      <form id="disconnect" method="POST" action="#">
-          <input type="submit" value="Disconnect">
-      </form>
-      <h2>Receive:</h2>
-      <div id="log"></div>
+        </form>
+        <button id="start" type="submit" value="start" class="ui-button ui-widget ui-corner-all">Start</button>
+        <button id="buttonVal" type="submit" value="stop" class="ui-button ui-widget ui-corner-all">Stop</button>
+        <form id="disconnect" method="POST" action="#">
+            <input type="submit" value="Disconnect">
+        </form>
+        <h2>Receive:</h2>
+        <div id="wrapper">
+            <div id="log"></div>
+            <div id="dataLog"></div>
+        </div>
     </div>
     <div id="tabs-2">
         <!--<div id="plotdiv" style="width:600px;height:250px;overflow: auto;"></div>-->

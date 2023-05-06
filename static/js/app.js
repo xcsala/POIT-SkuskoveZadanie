@@ -18,8 +18,9 @@ $(document).ready(function () {
 
 	socket.on('data_response', function(message){
 		var jsonData = JSON.parse(message.data)
+		var amplitude = jsonData.amplitude;
 		console.log(jsonData);
-		$('#log').append('Data received #' + message.count + ': Temperature = ' + jsonData.temperature + ", Humidity = " + jsonData.humidity + '<br>').html();
+		$('#dataLog').append('Data received #' + message.count + ': Temperature = ' + jsonData.temperature + ", Humidity = " + jsonData.humidity + '<br>').html();
 		x.push(parseFloat(message.count));
 		temperature.push(parseFloat(jsonData.temperature));
 		humidity.push(parseFloat(jsonData.humidity))
@@ -54,7 +55,7 @@ $(document).ready(function () {
 				type: "indicator",
 				mode: "gauge+number",
 				delta: {reference: 400},
-				gauge: {axis: {range: [-50, 50]}}
+				gauge: {axis: {range: [-50 * amplitude, 50 * amplitude]}}
 			}
 		];
 		layout = {width: 600, height: 400};
@@ -68,7 +69,7 @@ $(document).ready(function () {
 				type: "indicator",
 				mode: "gauge+number",
 				delta: {reference: 400},
-				gauge: {axis: {range: [0, 100]}}
+				gauge: {axis: {range: [0, 100 * amplitude]}}
 			}
 		];
 		layout = {width: 600, height: 400};
