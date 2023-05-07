@@ -7,7 +7,7 @@ $(document).ready(function () {
 	var x = new Array();
 	var temperature = new Array();
 	var humidity = new Array();
-	var trace;
+	// var trace;
 	var layout;
 	namespace = '/test';
 	var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
@@ -50,7 +50,7 @@ $(document).ready(function () {
 		var temperatureData = [
 			{
 				domain: {x: [0, 1], y: [0, 1]},
-				value: parseFloat(jsonData.temperature),
+				value: jtemperature,
 				title: {text: "Temperature"},
 				type: "indicator",
 				mode: "gauge+number",
@@ -64,7 +64,7 @@ $(document).ready(function () {
 		var humidityData = [
 			{
 				domain: {x: [0, 1], y: [0, 1]},
-				value: parseFloat(jsonData.humidity),
+				value: humidity,
 				title: {text: "Humidity"},
 				type: "indicator",
 				mode: "gauge+number",

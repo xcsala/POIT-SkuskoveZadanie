@@ -1,11 +1,11 @@
 from threading import Lock
 from flask import Flask, render_template, session, request, jsonify, url_for
 from flask_socketio import SocketIO, emit, disconnect
-import math
 import time
 import json
 import serial
 import pymysql
+import os
 import configparser as ConfigParser
 
 from dataUtils import *
@@ -47,8 +47,6 @@ def background_thread(args):
         if args:
           A = dict(args).get('A')
           btnV = dict(args).get('btn_value')
-          dbFlag = dict(args).get('dbFlag')
-        #   print(dbFlag)
         else:
           A = 1
         
@@ -107,13 +105,14 @@ def db():
     data = cursor.fetchall()
     return str(data)
 
-@app.route('/dbdata/<string:num>', methods=['GET', 'POST'])
+@app.route('/dbdata/<string:num>', methods=['GET'])
 def dbdata(num):
   db = pymysql.connect(host=myhost,user=myuser,passwd=mypasswd,db=mydb)
   cursor = db.cursor()
   cursor.execute("SELECT * FROM poit WHERE id=%s", num)
   data = cursor.fetchone()
-  return str(data)
+  parsedData = parseDatabaseData(data[1])
+  return render_template('data.html',async_mode = socketio.async_mode, rawdata = data, cleanData = parsedData)
 
 @socketio.on('connect', namespace='/test')
 def test_connect():
