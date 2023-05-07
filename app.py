@@ -27,23 +27,33 @@ thread = None
 thread_lock = Lock()
 dbFlag = False
 
+fileDir = "./static/files/"
+fileName = "dataFile"
+fileSuffix = ".txt"
+
 
 def background_thread(args):
     ser=serial.Serial("/dev/tty.usbmodem11201", 9600)
+    
     db = pymysql.connect(host=myhost,user=myuser,passwd=mypasswd,db=mydb)
+    
+    fileDir = "./static/files/"
+    fileName = "dataFile"
+    fileSuffix = ".txt"
+    
     count = 0
     flag = 0
     dataList = []
     btnV=""
     oldDigitalArduino = 1
     sensorFlag = True
+    
     while True:
         read_ser=ser.readline()
         arduinoData = parseArduinoData(read_ser)
         if(int(arduinoData[1]) == 0 and oldDigitalArduino != int(arduinoData[1])):
             sensorFlag = not sensorFlag
         oldDigitalArduino = int(arduinoData[1])
-        # print(sensorFlag)
         if args:
           A = dict(args).get('A')
           btnV = dict(args).get('btn_value')
@@ -73,13 +83,8 @@ def background_thread(args):
                 "amplitude" : float(A)
             }
             print(dataDict)
-                # "y": float(A) * prem}
             dataList.append(dataDict)
             json_object = json.dumps(dataDict, indent=4)
-            # print(json_object)
-            # if len(dataList) > 0:
-            #     # print(str(dataList))
-            #     print(str(dataList).replace("'", "\""))
             socketio.emit('data_response', {'data': json_object, 'count': count}, namespace='/test')
         else:
             if len(dataList) > 0:
@@ -87,8 +92,18 @@ def background_thread(args):
                 cursor = db.cursor()
                 cursor.execute("INSERT INTO poit (data) VALUES (%s)", (dataStr))
                 db.commit()
+                if os.path.exists(fileDir + fileName + fileSuffix):
+                    count = len([name for name in os.listdir(fileDir) if os.path.isfile(os.path.join(fileDir, name))])
+                    fileName = fileName + str(count)
+                else:
+                    fileName = fileName + str(0)
+                fileToWrite = open(fileDir + fileName + fileSuffix, "w")
+                fileToWrite.write(dataStr)
+                fileToWrite.close()
+                fileName = fileName[:len(fileName)-1]
                 dataList = []
-                count = 0         
+                count = 0
+                
     db.close()
             
 
@@ -111,8 +126,15 @@ def dbdata(num):
   cursor = db.cursor()
   cursor.execute("SELECT * FROM poit WHERE id=%s", num)
   data = cursor.fetchone()
-  parsedData = parseDatabaseData(data[1])
+  parsedData = parseFromSourceData(data[1])
   return render_template('data.html',async_mode = socketio.async_mode, rawdata = data, cleanData = parsedData)
+
+@app.route('/filedata/<string:num>', methods=['GET'])
+def filedata(num):
+    file = open(fileDir + fileName + str(num) + fileSuffix, "r")
+    data = file.read()
+    parsedData = parseFromSourceData(data)
+    return render_template('data.html',async_mode = socketio.async_mode, rawdata = data, cleanData = parsedData)
 
 @socketio.on('connect', namespace='/test')
 def test_connect():

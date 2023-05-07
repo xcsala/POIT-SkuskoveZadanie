@@ -5,7 +5,7 @@ def parseArduinoData(inputData):
     outputData = inputData.split(",")
     return outputData
 
-def parseDatabaseData(inputData):
+def parseFromSourceData(inputData):
     x = []
     temperature = []
     humidity = []

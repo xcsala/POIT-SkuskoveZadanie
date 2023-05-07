@@ -50,7 +50,7 @@ $(document).ready(function () {
 		var temperatureData = [
 			{
 				domain: {x: [0, 1], y: [0, 1]},
-				value: jtemperature,
+				value: temperature,
 				title: {text: "Temperature"},
 				type: "indicator",
 				mode: "gauge+number",

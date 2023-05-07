@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"/>
-    <link rel="stylesheet" src"/static/css/index.css"/>
+    <link rel="stylesheet" href="/static/css/indexStyle.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.5/socket.io.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.5/socket.io.min.js"></script>
@@ -28,22 +28,25 @@
             <input type="text" name="emit_value" id="emit_value" placeholder="Amplituda">
             <input type="submit" value="Send">
         </form>
-        <form id="open" method="POST" action="#">
+        <form id="open" method="POST" action="#" class="ui-button ui-widget ui-corner-all">
           <input type="submit" value="Open">
         </form>
         <button id="start" type="submit" value="start" class="ui-button ui-widget ui-corner-all">Start</button>
         <button id="buttonVal" type="submit" value="stop" class="ui-button ui-widget ui-corner-all">Stop</button>
-        <form id="disconnect" method="POST" action="#">
+        <form id="disconnect" method="POST" action="#" class="ui-button ui-widget ui-corner-all">
             <input type="submit" value="Disconnect">
         </form>
-        <h2>Receive:</h2>
-        <div id="wrapper">
-            <div id="log"></div>
-            <div id="dataLog"></div>
+        <div id = "temp">
+            <h2>Receive:</h2>
+            <div>
+                <div id="log"></div>
+            </div>
+            <div id = "dataLogWrapper">
+                <div id="dataLog"></div>
+            </div>
         </div>
     </div>
     <div id="tabs-2">
-        <!--<div id="plotdiv" style="width:600px;height:250px;overflow: auto;"></div>-->
         <div id="plotdiv"></div>
     </div>
     <div id="tabs-3">
