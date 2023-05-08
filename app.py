@@ -92,7 +92,7 @@ def background_thread(args):
                 cursor = db.cursor()
                 cursor.execute("INSERT INTO poit (data) VALUES (%s)", (dataStr))
                 db.commit()
-                if os.path.exists(fileDir + fileName + fileSuffix):
+                if os.path.exists(fileDir + fileName + str(0) + fileSuffix):
                     count = len([name for name in os.listdir(fileDir) if os.path.isfile(os.path.join(fileDir, name))])
                     fileName = fileName + str(count)
                 else:

@@ -50,7 +50,7 @@ $(document).ready(function () {
 		var temperatureData = [
 			{
 				domain: {x: [0, 1], y: [0, 1]},
-				value: temperature,
+				value: parseFloat(jsonData.temperature),
 				title: {text: "Temperature"},
 				type: "indicator",
 				mode: "gauge+number",
@@ -64,7 +64,7 @@ $(document).ready(function () {
 		var humidityData = [
 			{
 				domain: {x: [0, 1], y: [0, 1]},
-				value: humidity,
+				value: parseFloat(jsonData.humidity),
 				title: {text: "Humidity"},
 				type: "indicator",
 				mode: "gauge+number",

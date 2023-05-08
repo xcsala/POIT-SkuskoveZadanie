@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript" src="/static/js/app.js"></script>
-    <title>Skuskove zadanie</title>
+    <title>Exam assignment</title>
 </head>
 <body>
   <div id="tabs">
@@ -22,27 +22,29 @@
         <li><a href="#tabs-3">Aenean lacinia</a></li>
     </ul>
     <div id="tabs-1">
-        <h1>Flask-SocketIO Test</h1>
-        <h2>Send:</h2>
+        <h1>Mesure temperature and humidity</h1>
+        <h2>Send request:</h2>
         <form id="emit" method="POST" action='#'>
             <input type="text" name="emit_value" id="emit_value" placeholder="Amplituda">
-            <input type="submit" value="Send">
+            <input type="submit" value="Send" class="ui-button ui-widget ui-corner-all">
         </form>
-        <form id="open" method="POST" action="#" class="ui-button ui-widget ui-corner-all">
-          <input type="submit" value="Open">
+        <form id="open" method="POST" action="#">
+          <input type="submit" value="Open" class="ui-button ui-widget ui-corner-all">
         </form>
         <button id="start" type="submit" value="start" class="ui-button ui-widget ui-corner-all">Start</button>
         <button id="buttonVal" type="submit" value="stop" class="ui-button ui-widget ui-corner-all">Stop</button>
-        <form id="disconnect" method="POST" action="#" class="ui-button ui-widget ui-corner-all">
-            <input type="submit" value="Disconnect">
+        <form id="disconnect" method="POST" action="#">
+            <input type="submit" value="Disconnect" class="ui-button ui-widget ui-corner-all">
         </form>
         <div id = "temp">
             <h2>Receive:</h2>
-            <div>
-                <div id="log"></div>
-            </div>
-            <div id = "dataLogWrapper">
-                <div id="dataLog"></div>
+            <div id = "logsWrapper">
+                <div id = "logWrapper" class = "logs">
+                    <div id="log"></div>
+                </div>
+                <div id = "dataLogWrapper" class = "logs">
+                    <div id="dataLog"></div>
+                </div>
             </div>
         </div>
     </div>
